@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/PostingWidget.dart';
 
 class DiamondFaceResult extends StatelessWidget {
- final BoxDecoration deco = BoxDecoration(
+  final BoxDecoration deco = BoxDecoration(
     border: Border.all(
       color: const Color.fromARGB(0, 8, 0, 121),
       width: 2,
@@ -19,8 +20,6 @@ class DiamondFaceResult extends StatelessWidget {
   );
 
   DiamondFaceResult({super.key});
-
- 
 
   @override
   Widget build(BuildContext context) {
@@ -96,8 +95,8 @@ class DiamondFaceResult extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Container(
-                    width: 160,
-                    height: 190,
+                    width: 180,
+                    height: 180,
                     decoration: deco,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
@@ -110,8 +109,8 @@ class DiamondFaceResult extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    width: 160,
-                    height: 190,
+                    width: 180,
+                    height: 180,
                     decoration: deco,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
@@ -129,8 +128,8 @@ class DiamondFaceResult extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Container(
-                    width: 160,
-                    height: 190,
+                    width: 180,
+                    height: 180,
                     decoration: deco,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
@@ -143,8 +142,8 @@ class DiamondFaceResult extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    width: 160,
-                    height: 190,
+                    width: 180,
+                    height: 180,
                     decoration: deco,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
@@ -153,6 +152,32 @@ class DiamondFaceResult extends StatelessWidget {
                         width: 65,
                         height: 70,
                         image: AssetImage("images/d22.png"),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  OutlinedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PostingPage(),
+                        ),
+                      );
+                    },
+                    child: Transform.scale(
+                      scale: 1.5,
+                      child: Icon(Icons.add_outlined, color: Colors.white),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color.fromARGB(255, 152, 145, 102),
+                      fixedSize: Size(100, 50),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
                       ),
                     ),
                   ),
