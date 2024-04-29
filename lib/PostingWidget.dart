@@ -1,6 +1,8 @@
-import 'dart:ffi';
+import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:firebase_storage/firebase_storage.dart';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application_1/utils.dart';
@@ -73,11 +75,37 @@ class PostingPage extends StatelessWidget {
   TextEditingController _titleTec = TextEditingController();
   TextEditingController _captionTec = TextEditingController();
   static Uint8List? _image;
-  String warning = "";
+  String? _title;
+  String? _caption;
+  String? _imageUrl;
+
   static void checkImage() {
     print("Image Down Down Down");
     print(_image);
     print("Image UP UP UP");
+  }
+
+  void _savePost() async {
+    final date = DateTime.now().toString();
+    final url = Uri.https(
+        'fashionagent-ff669-default-rtdb.firebaseio.com', 'image-post-diamond.json');
+    final respone = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: json.encode(
+        {
+          'title': _title,
+          'caption': _caption,
+          'image':_image,
+          'date': date,
+          //Store image in the database because i got not much time left.
+        },
+      ),
+    );
+    print(respone.body);
+    print(respone.statusCode);
   }
 
   final BoxDecoration deco = BoxDecoration(
@@ -119,11 +147,13 @@ class PostingPage extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    String _title = _titleTec.text;
-                    String _caption = _captionTec.text;
+                    _title = _titleTec.text;
+                    _caption = _captionTec.text;
 
                     if (_title != "" && _caption != "" && _image != null) {
-                      print(_title + " |***and***|" + _caption);
+                      print(_title! + " |***and***|" + _caption!);
+                      _savePost();
+                      Navigator.of(context).pop();
                     } else {
                       showDialog(
                         context: context,
@@ -203,7 +233,10 @@ class PostingPage extends StatelessWidget {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [Text("1 to 1 image is recomanded")],
+                children: [
+                  Text(
+                      "File not bigger than 10 mb | 1 to 1 image is recomanded")
+                ],
               ),
             ],
           ),

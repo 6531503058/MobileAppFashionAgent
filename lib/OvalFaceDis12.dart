@@ -34,8 +34,8 @@ class OvalFaceDis12 extends StatelessWidget {
                       child: Container(
                         alignment: Alignment.center,
                         child: Stack(
+                          
                           children: [
-                           
                             const Image(
                               image: AssetImage('images/o12.png'),
                             ),
