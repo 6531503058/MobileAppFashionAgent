@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_application_1/personalColorTest.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/faceshapetest.dart';
@@ -58,7 +59,7 @@ class myapp extends StatelessWidget {
                   ),
                   onTap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const third()));
+                        MaterialPageRoute(builder: (context) => const personalColorTest()));
                   },
                   child: Container(
                     decoration: deco,

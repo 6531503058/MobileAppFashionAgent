@@ -44,16 +44,19 @@ class thePostingPage extends StatelessWidget {
                Expanded(
               flex: 4,
                child: Container(
-               color: Color.fromARGB(255, 202, 152, 152),
+               color: Color.fromARGB(255, 233, 233, 233),
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Container(height: 4,
                       color: Color.fromARGB(255, 139, 139, 139),),
-                      Text(lePost.title, style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                      FractionallySizedBox(
+                        widthFactor: 0.75,
+                        child: Column(children: [Text(lePost.title, style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
                       SizedBox(height: 10,),
-                      Text(lePost.caption),
+                      Text(lePost.caption),],),),
+                      
                      
                       
                     ],
