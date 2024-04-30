@@ -14,6 +14,7 @@ class PostFeed extends StatefulWidget {
 class _PostFeed extends State<PostFeed> {
   List<PostItem> _posts = [];
    final String _dataTarget = 'image-post-diamond.json';
+   final String _storageTarget = "diamond-img";
 
   @override
   void initState() {
@@ -31,12 +32,12 @@ class _PostFeed extends State<PostFeed> {
     final List<PostItem> _loadedPost = [];
     for (final item in listData.entries) {
       print("Lee image down");
-      Uint8List leImage = Uint8List.fromList(item.value['image'].cast<int>());
+      String leImage = item.value['image-url'];
       print("Lee image up");
       _loadedPost.add(PostItem(
           title: item.value['title'],
           caption: item.value['caption'],
-          image: leImage,
+          imageUrl: leImage,
           date: item.value['date'],
           id: item.key));
     }
@@ -84,7 +85,7 @@ class _PostFeed extends State<PostFeed> {
                     },
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(10.0),
-                                child: Image.memory(_posts[index].image)),
+                                child: Image.network(_posts[index].imageUrl)),
                             ),
                           ),
                         ),
@@ -106,7 +107,7 @@ class _PostFeed extends State<PostFeed> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => PostingPage( dataTarget: _dataTarget),
+                                builder: (context) => PostingPage( dataTarget: _dataTarget, storageTarget: _storageTarget ,),
                               ),
                             );
                           },

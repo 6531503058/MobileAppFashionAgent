@@ -30,7 +30,7 @@ class thePostingPage extends StatelessWidget {
                 child: Stack(
                             children: [
                              
-                              Image.memory(lePost.image, fit: BoxFit.contain, ),
+                              Image.network(lePost.imageUrl, fit: BoxFit.contain, ),
                                IconButton(
                                 onPressed: () {
                                   Navigator.pop(context);

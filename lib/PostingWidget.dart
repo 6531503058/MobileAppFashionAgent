@@ -1,8 +1,10 @@
 
+import 'dart:io';
 import 'dart:typed_data';
 
 
 import 'dart:convert';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application_1/utils.dart';
@@ -15,18 +17,19 @@ class SelectLeImage extends StatefulWidget {
 }
 
 class _SelectLeImage extends State<SelectLeImage> {
-  Uint8List? _image;
+  File? _image;
   @override
   Widget build(BuildContext context) {
     void selectImage() async {
-      Uint8List? img = await pickImage(ImageSource.gallery);
-      print("here img");
-      print(img);
+      final img = await pickImage(ImageSource.gallery);
+      if(img == null){
+        return;
+      }
       setState(() {
-        _image = img;
+        _image = File(img.path);
         print("setting");
         print(_image);
-        PostingPage._image = img;
+        PostingPage._image =File(img.path);
         PostingPage.checkImage();
       });
     }
@@ -44,11 +47,8 @@ class _SelectLeImage extends State<SelectLeImage> {
       } else {
         print("Memo");
         print(_image);
-        return Image.memory(
-          _image!,
-          width: 180,
-          height: 180,
-        );
+
+        return Image(image: FileImage(_image!)); 
       }
     }
 
@@ -74,13 +74,16 @@ class _SelectLeImage extends State<SelectLeImage> {
 class PostingPage extends StatelessWidget {
   final TextEditingController _titleTec = TextEditingController();
   final TextEditingController _captionTec = TextEditingController();
-  static Uint8List? _image;
+  static  File? _image;
   String? _title;
   String? _caption;
   String? _imageUrl;
   String dataTarget;
+  String storageTarget;
 
-  PostingPage({ super.key, required this.dataTarget});
+  PostingPage({ super.key, required this.dataTarget, required this.storageTarget});
+
+  
 
   static void checkImage() {
     print("Image Down Down Down");
@@ -89,7 +92,21 @@ class PostingPage extends StatelessWidget {
   }
 
   void _savePost() async {
-    final date = DateTime.now().toString();
+
+    
+
+    final date = DateTime.now().millisecondsSinceEpoch.toString();
+    print(date);
+    final storageRef = FirebaseStorage.instance
+    .ref()
+    .child(storageTarget)
+    .child('${date.toString()}.jpg');
+
+    await storageRef.putFile(_image!);
+     _imageUrl = await storageRef.getDownloadURL();
+     print(_imageUrl);
+
+
     final url = Uri.https(
         'fashionagent-ff669-default-rtdb.firebaseio.com', dataTarget);
     final respone = await http.post(
@@ -101,7 +118,7 @@ class PostingPage extends StatelessWidget {
         {
           'title': _title,
           'caption': _caption,
-          'image':_image,
+          'image-url': _imageUrl,
           'date': date,
           //Store image in the database because i got not much time left.
         },
@@ -238,7 +255,7 @@ class PostingPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                      "File not bigger than 10 mb | 1 to 1 image is recomanded")
+                      "1 to 1 image is recomanded")
                 ],
               ),
             ],
