@@ -86,7 +86,7 @@ class facetest extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ovalresult(),
+                          builder: (context) => OvalFaceResult(),
                         ),
                       );
                     },
@@ -195,7 +195,7 @@ class facetest extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => SquareFaceresult(),
+                          builder: (context) => SquareFaceResult(),
                         ),
                       );
                     },

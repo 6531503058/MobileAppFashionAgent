@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "662087737964",
+    "firebase_url": "https://fashionagent-ff669-default-rtdb.firebaseio.com",
+    "project_id": "fashionagent-ff669",
+    "storage_bucket": "fashionagent-ff669.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:662087737964:android:509d8be51bc5ea7f066e49",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAZbgLqUnP9JwKGIgFD8WaQGlt9aZl4jw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

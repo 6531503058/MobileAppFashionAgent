@@ -1,7 +1,7 @@
-import 'dart:io';
+
 import 'dart:typed_data';
 
-import 'package:firebase_storage/firebase_storage.dart';
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -72,12 +72,15 @@ class _SelectLeImage extends State<SelectLeImage> {
 }
 
 class PostingPage extends StatelessWidget {
-  TextEditingController _titleTec = TextEditingController();
-  TextEditingController _captionTec = TextEditingController();
+  final TextEditingController _titleTec = TextEditingController();
+  final TextEditingController _captionTec = TextEditingController();
   static Uint8List? _image;
   String? _title;
   String? _caption;
   String? _imageUrl;
+  String dataTarget;
+
+  PostingPage({ super.key, required this.dataTarget});
 
   static void checkImage() {
     print("Image Down Down Down");
@@ -88,7 +91,7 @@ class PostingPage extends StatelessWidget {
   void _savePost() async {
     final date = DateTime.now().toString();
     final url = Uri.https(
-        'fashionagent-ff669-default-rtdb.firebaseio.com', 'image-post-diamond.json');
+        'fashionagent-ff669-default-rtdb.firebaseio.com', dataTarget);
     final respone = await http.post(
       url,
       headers: {
@@ -125,7 +128,7 @@ class PostingPage extends StatelessWidget {
     borderRadius: BorderRadius.circular(25),
   );
 
-  PostingPage({super.key});
+
 
   @override
   Widget build(BuildContext context) {

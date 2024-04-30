@@ -26,7 +26,7 @@ class thePostingPage extends StatelessWidget {
              Expanded(
               flex: 6,
                child: Container(alignment: Alignment.center,
-               color: Colors.orange,
+               color: Color.fromARGB(255, 241, 241, 241),
                 child: Stack(
                             children: [
                              
@@ -43,9 +43,22 @@ class thePostingPage extends StatelessWidget {
              ),
                Expanded(
               flex: 4,
-               child: Container(alignment: Alignment.center,
-               color: const Color.fromARGB(255, 255, 0, 0),
-                child: Text("hi"),),
+               child: Container(
+               color: Color.fromARGB(255, 202, 152, 152),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(height: 4,
+                      color: Color.fromARGB(255, 139, 139, 139),),
+                      Text(lePost.title, style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                      SizedBox(height: 10,),
+                      Text(lePost.caption),
+                     
+                      
+                    ],
+                  ),
+                ),),
              ),
                 
           

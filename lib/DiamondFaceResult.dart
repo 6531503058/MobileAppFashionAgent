@@ -13,6 +13,7 @@ class PostFeed extends StatefulWidget {
 
 class _PostFeed extends State<PostFeed> {
   List<PostItem> _posts = [];
+   final String _dataTarget = 'image-post-diamond.json';
 
   @override
   void initState() {
@@ -24,7 +25,7 @@ class _PostFeed extends State<PostFeed> {
 
   void _loadPost() async {
     final url = Uri.https('fashionagent-ff669-default-rtdb.firebaseio.com',
-        'image-post-diamond.json');
+        _dataTarget);
     final respond = await http.get(url);
     final Map<String, dynamic> listData = json.decode(respond.body);
     final List<PostItem> _loadedPost = [];
@@ -105,7 +106,7 @@ class _PostFeed extends State<PostFeed> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => PostingPage(),
+                                builder: (context) => PostingPage( dataTarget: _dataTarget),
                               ),
                             );
                           },
@@ -133,6 +134,8 @@ class _PostFeed extends State<PostFeed> {
 }
 
 class DiamondFaceResult extends StatelessWidget {
+ 
+
   final BoxDecoration deco = BoxDecoration(
     border: Border.all(
       color: const Color.fromARGB(0, 8, 0, 121),
