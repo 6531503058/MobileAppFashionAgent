@@ -119,7 +119,12 @@ flutter:
     - images/pupleHand.png
     - images/greenHand.png
     - images/coolpat.png
-    - images/warmpat.png
+    - images/warmpat.png 
+    - images/WomanChoosing.png 
+    - images/twoFinger.png 
+    - images/platletCool.png 
+    - images/platletWarm.png 
+    - images/tenFinger.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
@@ -131,10 +136,19 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+    - family: montserrat
+      fonts:
+        - asset: fonts/Montserrat-Black.ttf
+        - asset: fonts/Montserrat-BlackItalic.ttf
+        - asset: fonts/Montserrat-Bold.ttf
+        - asset: fonts/Montserrat-ExtraBold.ttf
+        - asset: fonts/Montserrat-ExtraLight.ttf
+        - asset: fonts/Montserrat-Light.ttf
+        - asset: fonts/Montserrat-Medium.ttf
+        - asset: fonts/Montserrat-Medium.ttf 
+        - asset: fonts/Montserrat-Regular.ttf
+        - asset: fonts/Montserrat-Thin.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

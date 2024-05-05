@@ -55,15 +55,6 @@ class facetest extends StatelessWidget {
                     },
                     icon: const Icon(Icons.close),
                   ),
-                  Container(
-                    height: 40,
-                    width: 175,
-                    decoration: decoTitle,
-                    child: const Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [Text('Define Your face shape')],
-                    ),
-                  ),
                   Visibility(
                     maintainSize: true,
                     maintainAnimation: true,
@@ -78,6 +69,25 @@ class facetest extends StatelessWidget {
                   ),
                 ],
               ),
+                const Column(
+                    children: [
+                      Text('DEFINE YOUR',
+                          style: TextStyle(
+                            height: 0,
+                            fontSize: 27,
+                            fontFamily: 'montserrat'
+                          ),),
+                      Text(
+                         'FACE SHAPE',
+                         style: TextStyle(
+                           height: 0,
+                           fontSize: 27,
+                           color: Color.fromARGB(255, 182, 127, 98),
+                           fontFamily: 'montserrat'
+                         ),
+                       ),
+                    ],
+                  ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -109,13 +119,12 @@ class facetest extends StatelessWidget {
                           ),
                           Container(
                             margin: const EdgeInsets.only(top: 5),
-                            child: const Text("Oval face"),
+                            child: const Text("Oval face",style: TextStyle(fontFamily: 'montserrat'),),
                           ),
                         ],
                       ),
                     ),
                   ),
-                  
                   InkWell(
                     onTap: () {
                       Navigator.push(
@@ -126,7 +135,6 @@ class facetest extends StatelessWidget {
                       );
                     },
                     child: Container(
-                    
                       decoration: deco,
                       width: 180,
                       height: 210,
@@ -145,7 +153,7 @@ class facetest extends StatelessWidget {
                           ),
                           Container(
                             margin: const EdgeInsets.only(top: 5),
-                            child: const Text("Rectangle face"),
+                            child: const Text("Rectangle face",style: TextStyle(fontFamily: 'montserrat'),),
                           ),
                         ],
                       ),
@@ -184,13 +192,13 @@ class facetest extends StatelessWidget {
                           ),
                           Container(
                             margin: const EdgeInsets.only(top: 5),
-                            child: const Text("Round face"),
+                            child: const Text("Round face",style: TextStyle(fontFamily: 'montserrat'),),
                           ),
                         ],
                       ),
                     ),
                   ),
-                 InkWell(
+                  InkWell(
                     onTap: () {
                       Navigator.push(
                         context,
@@ -218,7 +226,7 @@ class facetest extends StatelessWidget {
                           ),
                           Container(
                             margin: const EdgeInsets.only(top: 5),
-                            child: const Text("Square face"),
+                            child: const Text("Square face",style: TextStyle(fontFamily: 'montserrat'),),
                           ),
                         ],
                       ),
@@ -229,7 +237,7 @@ class facetest extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                   InkWell(
+                  InkWell(
                     onTap: () {
                       Navigator.push(
                         context,
@@ -257,13 +265,13 @@ class facetest extends StatelessWidget {
                           ),
                           Container(
                             margin: const EdgeInsets.only(top: 5),
-                            child: const Text("Hearth face"),
+                            child: const Text("Hearth face",style: TextStyle(fontFamily: 'montserrat'),),
                           ),
                         ],
                       ),
                     ),
                   ),
-                 InkWell(
+                  InkWell(
                     onTap: () {
                       Navigator.push(
                         context,
@@ -291,7 +299,7 @@ class facetest extends StatelessWidget {
                           ),
                           Container(
                             margin: const EdgeInsets.only(top: 5),
-                            child: const Text("Diamond face"),
+                            child: const Text("Diamond face",style: TextStyle(fontFamily: 'montserrat'),),
                           ),
                         ],
                       ),
@@ -299,6 +307,7 @@ class facetest extends StatelessWidget {
                   ),
                 ],
               ),
+              const SizedBox(height: 50,)
             ],
           ),
         ),

@@ -1,12 +1,7 @@
-
 import 'dart:io';
-import 'dart:typed_data';
-
-
 import 'dart:convert';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_application_1/utils.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
@@ -22,33 +17,25 @@ class _SelectLeImage extends State<SelectLeImage> {
   Widget build(BuildContext context) {
     void selectImage() async {
       final img = await pickImage(ImageSource.gallery);
-      if(img == null){
+      if (img == null) {
         return;
       }
       setState(() {
         _image = File(img.path);
-        print("setting");
-        print(_image);
-        PostingPage._image =File(img.path);
-        PostingPage.checkImage();
+        PostingPage._image = File(img.path);
       });
     }
 
     Widget checkNullImage() {
-      print(_image);
       if (_image == null) {
-        print("Icon");
         return Transform.scale(
             scale: 1.75,
-            child: Icon(
+            child: const Icon(
               Icons.add_outlined,
               color: Color.fromARGB(255, 156, 156, 156),
             ));
       } else {
-        print("Memo");
-        print(_image);
-
-        return Image(image: FileImage(_image!)); 
+        return Image(image: FileImage(_image!));
       }
     }
 
@@ -60,7 +47,7 @@ class _SelectLeImage extends State<SelectLeImage> {
           selectImage();
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: Color.fromARGB(255, 255, 255, 255),
+          backgroundColor: const Color.fromARGB(255, 255, 255, 255),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -74,41 +61,32 @@ class _SelectLeImage extends State<SelectLeImage> {
 class PostingPage extends StatelessWidget {
   final TextEditingController _titleTec = TextEditingController();
   final TextEditingController _captionTec = TextEditingController();
-  static  File? _image;
+  final TextEditingController _authorTec = TextEditingController();
+  static File? _image;
   String? _title;
   String? _caption;
   String? _imageUrl;
   String dataTarget;
   String storageTarget;
+  String? _author;
 
-  PostingPage({ super.key, required this.dataTarget, required this.storageTarget});
+  PostingPage(
+      {super.key, required this.dataTarget, required this.storageTarget});
 
-  
 
-  static void checkImage() {
-    print("Image Down Down Down");
-    print(_image);
-    print("Image UP UP UP");
-  }
 
   void _savePost() async {
-
-    
-
     final date = DateTime.now().millisecondsSinceEpoch.toString();
-    print(date);
     final storageRef = FirebaseStorage.instance
-    .ref()
-    .child(storageTarget)
-    .child('${date.toString()}.jpg');
+        .ref()
+        .child(storageTarget)
+        .child('${date.toString()}.jpg');
 
     await storageRef.putFile(_image!);
-     _imageUrl = await storageRef.getDownloadURL();
-     print(_imageUrl);
+    _imageUrl = await storageRef.getDownloadURL();
 
-
-    final url = Uri.https(
-        'fashionagent-ff669-default-rtdb.firebaseio.com', dataTarget);
+    final url =
+        Uri.https('fashionagent-ff669-default-rtdb.firebaseio.com', dataTarget);
     final respone = await http.post(
       url,
       headers: {
@@ -120,12 +98,11 @@ class PostingPage extends StatelessWidget {
           'caption': _caption,
           'image-url': _imageUrl,
           'date': date,
+          'author': _author,
           //Store image in the database because i got not much time left.
         },
       ),
     );
-    print(respone.body);
-    print(respone.statusCode);
   }
 
   final BoxDecoration deco = BoxDecoration(
@@ -144,8 +121,6 @@ class PostingPage extends StatelessWidget {
     color: const Color.fromARGB(255, 216, 198, 185),
     borderRadius: BorderRadius.circular(25),
   );
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -169,9 +144,11 @@ class PostingPage extends StatelessWidget {
                   onPressed: () {
                     _title = _titleTec.text;
                     _caption = _captionTec.text;
-
+                    _author = _authorTec.text;
                     if (_title != "" && _caption != "" && _image != null) {
-                      print(_title! + " |***and***|" + _caption!);
+                      if (_author == '' || _author == null) {
+                        _author = "Anonymous";
+                      }
                       _savePost();
                       Navigator.of(context).pop();
                     } else {
@@ -185,17 +162,17 @@ class PostingPage extends StatelessWidget {
                                 },
                                 child: const Text("Close"))
                           ],
-                          title: const Text("Please fill all form"),
+                          title: const Text("Please fill all required form", style: TextStyle(fontFamily: 'montserrat'),),
                         ),
                       );
                     }
                   },
-                  child: Text(
+                  child: const Text(
                     "Done",
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 20,
-                        fontFamily: "Montserrat",
+                        fontFamily: "montserrat",
                         fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -207,7 +184,7 @@ class PostingPage extends StatelessWidget {
                     "Post",
                     style: TextStyle(
                         fontSize: 20,
-                        fontFamily: "Montserrat",
+                        fontFamily: "montserrat",
                         fontWeight: FontWeight.bold),
                   ),
                 ],
@@ -221,7 +198,19 @@ class PostingPage extends StatelessWidget {
                   child: TextField(
                     controller: _titleTec,
                     textAlign: TextAlign.center,
-                    decoration: const InputDecoration(hintText: "Title"),
+                    decoration: const InputDecoration(hintText: "Title", hintStyle: TextStyle(fontFamily: 'montserrat')),
+                  ),
+                ),
+              ),
+              Flexible(
+                child: FractionallySizedBox(
+                  widthFactor: 0.75,
+                  child: TextField(
+                    controller: _authorTec,
+                    textAlign: TextAlign.start,
+                    decoration: const InputDecoration(
+                        hintText: "author: (defaul Anonymous)",
+                        hintStyle: TextStyle(fontWeight: FontWeight.w600,fontFamily: 'montserrat')),
                   ),
                 ),
               ),
@@ -234,13 +223,13 @@ class PostingPage extends StatelessWidget {
                   child: TextField(
                     controller: _captionTec,
                     textAlign: TextAlign.center,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         border: InputBorder.none,
                         focusedBorder: InputBorder.none,
                         enabledBorder: InputBorder.none,
                         errorBorder: InputBorder.none,
                         disabledBorder: InputBorder.none,
-                        hintText: "tap to add caption"),
+                        hintText: "tap to add caption", hintStyle: TextStyle(fontFamily: 'montserrat')),
                     minLines: 1, // Set this
                     maxLines: 10, // and this
                     keyboardType: TextInputType.multiline,
@@ -248,15 +237,12 @@ class PostingPage extends StatelessWidget {
                 ),
               ),
               SelectLeImage(),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                      "1 to 1 image is recomanded")
-                ],
+                children: [Text("1 to 1 image is recomanded", style: TextStyle(fontFamily: 'montserrat'),)],
               ),
             ],
           ),

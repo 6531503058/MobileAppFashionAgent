@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/PostingWidget.dart';
 import 'package:flutter_application_1/model/PostItem.dart';
@@ -17,8 +16,6 @@ class _PostFeed extends State<PostFeed> {
    final String _storageTarget = "warm-img";
   @override
   void initState() {
-    print("init");
-
     super.initState();
     _loadPost();
   }
@@ -30,11 +27,10 @@ class _PostFeed extends State<PostFeed> {
     final Map<String, dynamic> listData = json.decode(respond.body);
     final List<PostItem> _loadedPost = [];
     for (final item in listData.entries) {
-      print("Lee image down");
       String leImage = item.value['image-url'];
-      print("Lee image up");
       _loadedPost.add(PostItem(
           title: item.value['title'],
+          author: item.value['author'],
           caption: item.value['caption'],
           imageUrl: leImage,
           date: item.value['date'],
@@ -43,13 +39,8 @@ class _PostFeed extends State<PostFeed> {
 
     setState(() {
       _posts = _loadedPost;
-      print("Check Post");
-      print(_posts);
     });
 
-    print(
-        "*****************************************__Respond__******************************");
-    print(respond.body);
   }
 
   @override
@@ -58,21 +49,24 @@ class _PostFeed extends State<PostFeed> {
       widthFactor: 1,
       heightFactor: 1,
       child: Container(
-        color: Color.fromARGB(255, 233, 233, 233),
+        color: const Color.fromARGB(255, 255, 255, 255),
         child: Stack(
           alignment: AlignmentDirectional.bottomCenter,
-          children: [ListView.builder(
+          children: [GridView.builder(
+
               itemCount: _posts.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
               itemBuilder: (ctx, index) => Column(
                     children: [
+                      
                       Container(
                         decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 241, 241, 241),
-                            borderRadius: BorderRadius.circular(10)),
+                            color: const Color.fromARGB(255, 255, 255, 255),
+                            borderRadius: BorderRadius.circular(0)),
                         child: FractionallySizedBox(
-                          widthFactor: 0.75,
+                          widthFactor: 0.9,
                           child: FractionallySizedBox(
-                            widthFactor: 0.8,
+                            widthFactor: 0.85,
                             child: InkWell(
                               onTap: () {
                       Navigator.push(
@@ -83,22 +77,18 @@ class _PostFeed extends State<PostFeed> {
                       );
                     },
                               child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10.0),
+                                borderRadius: BorderRadius.circular(0),
                                 child: Image.network(_posts[index].imageUrl)),
                             ),
                           ),
                         ),
                       ),
                       Container(
-                        height: 10,
-                        color: Color.fromARGB(255, 233, 233, 233),
-                      )
+                        color: const Color.fromARGB(255, 255, 255, 255),
+                        child: Text(_posts[index].title, style: const TextStyle(fontWeight: FontWeight.w800,fontFamily: 'montserrat'),),
+                      ),
                     ],
                   )
-              /*ListTile(
-              title: Text(_posts[index].title),
-              leading: Container(child: Image.memory(_posts[index].image)),
-            ),*/
               ),Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [TextButton(
@@ -106,25 +96,25 @@ class _PostFeed extends State<PostFeed> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => PostingPage( dataTarget: _dataTarget,storageTarget: _storageTarget,),
+                                builder: (context) => PostingPage( dataTarget: _dataTarget, storageTarget: _storageTarget ,),
                               ),
                             );
                           },
-                          child: Transform.scale(
-                            scale: 1.5,
-                            child: Icon(Icons.add_outlined, color: Colors.white),
-                          ),
                           style: ElevatedButton.styleFrom(
                             elevation: 0,
-                            backgroundColor: Color.fromARGB(255, 216, 198, 185),
-                            fixedSize: Size(100, 50),
+                            backgroundColor: const Color.fromARGB(255, 216, 198, 185),
+                            fixedSize: const Size(100, 50),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                               
                             ),
                           ),
+                          child: Transform.scale(
+                            scale: 1.5,
+                            child: const Icon(Icons.add_outlined, color: Colors.white),
+                          ),
                         ),
-                        SizedBox(height: 10,),
+                        const SizedBox(height: 10,),
           ],),
 
         ]),
@@ -174,13 +164,12 @@ class  WarmToneResult extends StatelessWidget {
                     },
                     icon: const Icon(Icons.arrow_back_ios_rounded),
                   ),
-                  Container(
+                   const SizedBox(
                     height: 40,
                     width: 175,
-                    decoration: decoTitle,
-                    child: const Column(
+                    child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [Text('Warm Tone')],
+                      children: [Text('COOL TONE',textAlign: TextAlign.center, style: TextStyle(height: 0,color: Color.fromARGB(255, 182, 127, 98), fontSize: 24,fontWeight: FontWeight.w700, fontFamily: 'montserrat'),),],
                     ),
                   ),
                   Visibility(
@@ -199,33 +188,38 @@ class  WarmToneResult extends StatelessWidget {
               ),
 
               /*Here*/
-              Row(
+              Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
                     width: 180,
-                    height: 120,
+                    height: 40,
                     margin: const EdgeInsets.only(left: 10, right: 10),
                     child: const Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                            "You are warm tone"),
+                            "the colors we suggest",textAlign: TextAlign.center, style: TextStyle(fontFamily: 'montserrat'),),
                       ],
                     ),
                   ),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: const Image(
-                      width: 120,
-                      height: 120,
+                      width: 350,
+                      
                       fit: BoxFit.fill,
-                      image: AssetImage("images/warmpat.png"),
+                      image: AssetImage("images/platletWarm.png"),
                     ),
                   ),
+                  const SizedBox(height: 20,),
+                  const Text(
+                          "you can tap in picture for more detail",textAlign: TextAlign.center,
+                          style: TextStyle(height: 0, fontSize: 12,fontFamily: 'montserrat'),
+                        ),
                 ],
               ),
-              SizedBox(height: 10,),
+               const SizedBox(height: 20,),
               Flexible(
                 child: PostFeed(),
               ),

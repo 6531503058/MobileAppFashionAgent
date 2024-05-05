@@ -1,12 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/DiamondFaceResult.dart';
-import 'package:flutter_application_1/HearthFaceResult.dart';
-import 'package:flutter_application_1/RoundFaceResult.dart';
-import 'package:flutter_application_1/SquareFaceresult.dart';
-import 'package:flutter_application_1/coolToneResult%20copy.dart';
-import 'package:flutter_application_1/warmToneResult.dart';
-import 'package:flutter_application_1/ovalfaceresult.dart';
-import 'package:flutter_application_1/rectanglefaceresult.dart';
+import 'package:flutter_application_1/youAre.dart';
 
 class personalColorTest extends StatelessWidget {
   const personalColorTest({super.key});
@@ -32,7 +25,7 @@ class personalColorTest extends StatelessWidget {
                     },
                     icon: const Icon(Icons.close),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 1,
                   )
                 ],
@@ -41,15 +34,26 @@ class personalColorTest extends StatelessWidget {
                 children: [
                   const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [Text("DEFINE YOUR COLOR WITH COLOR TONE")],
+                    children: [Text("DEFINE YOUR COLOR WITH COLOR TONE", style: TextStyle(fontFamily: 'montserrat'),)],
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 30),
+                    alignment: Alignment.center,
+                    width: 200,
+                    decoration: BoxDecoration(color: const Color.fromARGB(255,161, 188, 180),
+                    borderRadius: BorderRadius.circular(10),),
+                    padding: const EdgeInsets.only(
+                        top: 20, left: 30, right: 30, bottom: 20),
+                    child: const Text("PERSONAL COLOR", style: TextStyle(fontFamily: 'montserrat',color: Colors.white ),),
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const SizedBox(
-                              width: 200,
+                              width: 150,
                               height: 300,
                               child: Image(
                                 image: AssetImage('images/pupleHand.png'),
@@ -60,7 +64,7 @@ class personalColorTest extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => CoolToneResult(),
+                          builder: (context) => const YouAre(plat: "platletCool.png",finger: 'twoFinger.png',tone: 'COOL', r: 214, g: 239, b: 244,),
                         ),
                       );
                     },
@@ -72,7 +76,7 @@ class personalColorTest extends StatelessWidget {
                                   color: Color.fromARGB(255, 214, 239, 244),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(20),),),
-                                      child: Text("purple blood blue tone"),
+                                      child: const Text("purple blood\n  blue tone", style: TextStyle(fontFamily: 'montserrat'),),
                             ),
                           ),
                         ],
@@ -81,7 +85,7 @@ class personalColorTest extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const SizedBox(
-                              width: 200,
+                              width: 150,
                               height: 300,
                               child: Image(
                                 image: AssetImage('images/greenHand.png'),
@@ -92,7 +96,7 @@ class personalColorTest extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => WarmToneResult(),
+                          builder: (context) => const YouAre(plat: 'platletWarm.png',finger:'tenFinger.png' ,tone: 'WARM', r: 254, g: 253, b: 233, ),
                         ),
                       );
                     },
@@ -104,7 +108,7 @@ class personalColorTest extends StatelessWidget {
                                   color: Color.fromARGB(255, 254, 253, 233),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(20),),),
-                                      child: const Text("green blood Yellow tone"),
+                                      child: const Text("green blood\nYellow tone" ,style: TextStyle(fontFamily: 'montserrat'),),
                             ),
                           ),
                         ],

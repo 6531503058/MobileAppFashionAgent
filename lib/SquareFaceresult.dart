@@ -30,12 +30,11 @@ class _PostFeed extends State<PostFeed> {
     final Map<String, dynamic> listData = json.decode(respond.body);
     final List<PostItem> _loadedPost = [];
     for (final item in listData.entries) {
-      print("Lee image down");
       String leImage = item.value['image-url'];
-      print("Lee image up");
       _loadedPost.add(PostItem(
           title: item.value['title'],
           caption: item.value['caption'],
+          author: item.value['author'],
           imageUrl: leImage,
           date: item.value['date'],
           id: item.key));
@@ -43,13 +42,7 @@ class _PostFeed extends State<PostFeed> {
 
     setState(() {
       _posts = _loadedPost;
-      print("Check Post");
-      print(_posts);
     });
-
-    print(
-        "*****************************************__Respond__******************************");
-    print(respond.body);
   }
 
   @override
@@ -58,21 +51,24 @@ class _PostFeed extends State<PostFeed> {
       widthFactor: 1,
       heightFactor: 1,
       child: Container(
-        color: Color.fromARGB(255, 233, 233, 233),
+        color: const Color.fromARGB(255, 255, 255, 255),
         child: Stack(
           alignment: AlignmentDirectional.bottomCenter,
-          children: [ListView.builder(
+          children: [GridView.builder(
+
               itemCount: _posts.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
               itemBuilder: (ctx, index) => Column(
                     children: [
+                      
                       Container(
                         decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 241, 241, 241),
-                            borderRadius: BorderRadius.circular(10)),
+                            color: const Color.fromARGB(255, 255, 255, 255),
+                            borderRadius: BorderRadius.circular(0)),
                         child: FractionallySizedBox(
-                          widthFactor: 0.75,
+                          widthFactor: 0.9,
                           child: FractionallySizedBox(
-                            widthFactor: 0.8,
+                            widthFactor: 0.85,
                             child: InkWell(
                               onTap: () {
                       Navigator.push(
@@ -83,16 +79,16 @@ class _PostFeed extends State<PostFeed> {
                       );
                     },
                               child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10.0),
+                                borderRadius: BorderRadius.circular(0),
                                 child: Image.network(_posts[index].imageUrl)),
                             ),
                           ),
                         ),
                       ),
                       Container(
-                        height: 10,
-                        color: Color.fromARGB(255, 233, 233, 233),
-                      )
+                        color: const Color.fromARGB(255, 255, 255, 255),
+                        child: Text(_posts[index].title, style: TextStyle(fontWeight: FontWeight.w800,fontFamily: 'montserrat'),),
+                      ),
                     ],
                   )
               /*ListTile(
@@ -106,25 +102,25 @@ class _PostFeed extends State<PostFeed> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => PostingPage( dataTarget: _dataTarget,storageTarget: _storageTarget,),
+                                builder: (context) => PostingPage( dataTarget: _dataTarget, storageTarget: _storageTarget ,),
                               ),
                             );
                           },
-                          child: Transform.scale(
-                            scale: 1.5,
-                            child: Icon(Icons.add_outlined, color: Colors.white),
-                          ),
                           style: ElevatedButton.styleFrom(
                             elevation: 0,
-                            backgroundColor: Color.fromARGB(255, 216, 198, 185),
-                            fixedSize: Size(100, 50),
+                            backgroundColor: const Color.fromARGB(255, 216, 198, 185),
+                            fixedSize: const Size(100, 50),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                               
                             ),
                           ),
+                          child: Transform.scale(
+                            scale: 1.5,
+                            child: const Icon(Icons.add_outlined, color: Colors.white),
+                          ),
                         ),
-                        SizedBox(height: 10,),
+                        const SizedBox(height: 10,),
           ],),
 
         ]),
@@ -175,13 +171,12 @@ class  SquareFaceResult extends StatelessWidget {
                     },
                     icon: const Icon(Icons.arrow_back_ios_rounded),
                   ),
-                  Container(
+                  const SizedBox(
                     height: 40,
                     width: 175,
-                    decoration: decoTitle,
-                    child: const Column(
+                    child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [Text('Sqaure Face')],
+                      children: [Text('SQUARE FACE', style: TextStyle(color: Color.fromARGB(255, 182, 127, 98), fontSize: 24,fontWeight: FontWeight.w700, fontFamily: 'montserrat'),),],
                     ),
                   ),
                   Visibility(
@@ -204,29 +199,28 @@ class  SquareFaceResult extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    width: 180,
+                     alignment: Alignment.center,
+                    width: 350,
                     height: 120,
                     margin: const EdgeInsets.only(left: 10, right: 10),
                     child: const Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                            "It is a face that is highly popular in today's society, characterized by defined cheekbones and a prominent jawline."),
+                            "It is a face that is highly popular in today's society, characterized by defined cheekbones and a prominent jawline.",textAlign: TextAlign.center,style: TextStyle(fontFamily: 'montserrat'),),
+                             SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          "you can tap in picture for more detail",textAlign: TextAlign.center,
+                          style: TextStyle(height: 0, fontSize: 11,fontFamily: 'montserrat'),
+                        ),
                       ],
-                    ),
-                  ),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: const Image(
-                      width: 120,
-                      height: 120,
-                      fit: BoxFit.fill,
-                      image: AssetImage("images/h1.png"),
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               Flexible(
                 child: PostFeed(),
               ),
@@ -238,119 +232,3 @@ class  SquareFaceResult extends StatelessWidget {
   }
 }
 
-/*OutlinedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => PostingPage(),
-                            ),
-                          );
-                        },
-                        child: Transform.scale(
-                          scale: 1.5,
-                          child: Icon(Icons.add_outlined, color: Colors.white),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color.fromARGB(255, 152, 145, 102),
-                          fixedSize: Size(100, 50),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                      ),*/
-
-
-/*Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 180,
-                    height: 240,
-                    margin: const EdgeInsets.only(left: 10, right: 10),
-                    child: const Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                            "It's a narrow-faced shape without small angles or prominent cheekbones, featuring a wide cheek area, narrow forehead, and pointed chin."),
-                      ],
-                    ),
-                  ),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: const Image(
-                      width: 190,
-                      height: 190,
-                      fit: BoxFit.fill,
-                      image: AssetImage("images/d1.png"),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    width: 180,
-                    height: 180,
-                    decoration: deco,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: const Image(
-                        fit: BoxFit.fill,
-                        width: 65,
-                        height: 70,
-                        image: AssetImage("images/d11.png"),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: 180,
-                    height: 180,
-                    decoration: deco,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: const Image(
-                        fit: BoxFit.fill,
-                        width: 65,
-                        height: 70,
-                        image: AssetImage("images/d12.png"),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    width: 180,
-                    height: 180,
-                    decoration: deco,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: const Image(
-                        fit: BoxFit.fill,
-                        width: 65,
-                        height: 70,
-                        image: AssetImage("images/d21.png"),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: 180,
-                    height: 180,
-                    decoration: deco,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: const Image(
-                        fit: BoxFit.fill,
-                        width: 65,
-                        height: 70,
-                        image: AssetImage("images/d22.png"),
-                      ),
-                    ),
-                  ),
-                ],
-              ),*/

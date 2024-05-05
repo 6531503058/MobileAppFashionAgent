@@ -26,7 +26,7 @@ class thePostingPage extends StatelessWidget {
              Expanded(
               flex: 6,
                child: Container(alignment: Alignment.center,
-               color: Color.fromARGB(255, 241, 241, 241),
+               color: const Color.fromARGB(255, 241, 241, 241),
                 child: Stack(
                             children: [
                              
@@ -36,7 +36,7 @@ class thePostingPage extends StatelessWidget {
                                   Navigator.pop(context);
                                 },
                                 icon: const Icon(Icons.arrow_back_ios_rounded),
-                                color: Color.fromARGB(255, 32, 32, 32),
+                                color: const Color.fromARGB(255, 32, 32, 32),
                               ),
                             ],
                           ),),
@@ -44,18 +44,22 @@ class thePostingPage extends StatelessWidget {
                Expanded(
               flex: 4,
                child: Container(
-               color: Color.fromARGB(255, 233, 233, 233),
+              // color: Color.fromARGB(255, 233, 233, 233),
+              decoration: const BoxDecoration( gradient: LinearGradient( begin: Alignment.topRight,
+              end: Alignment.bottomLeft,colors: [Color.fromARGB(255, 255, 255, 255), Color.fromARGB(255, 255, 255, 255),],),),
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Container(height: 4,
-                      color: Color.fromARGB(255, 139, 139, 139),),
+                      color: const Color.fromARGB(255, 255, 255, 255),),//139
                       FractionallySizedBox(
                         widthFactor: 0.75,
-                        child: Column(children: [Text(lePost.title, style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
-                      SizedBox(height: 10,),
-                      Text(lePost.caption),],),),
+                        child: Column(children: [Text(lePost.title, style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 20,fontFamily: 'montserrat'),),
+                      const SizedBox(height: 5,),
+                      Text("author: ${lePost.author}", style: const TextStyle(fontFamily: 'montserrat'),),
+                      const SizedBox(height: 10,),
+                      Text(lePost.caption, textAlign: TextAlign.center,style: const TextStyle(fontFamily: 'montserrat'),),],),),
                       
                      
                       
@@ -74,46 +78,4 @@ class thePostingPage extends StatelessWidget {
     ),);
   }
 }
-/*Flexible(
-                       child: FractionallySizedBox(
-                        widthFactor: 1,
-                        heightFactor: 0.7,
-                        child:
-                        Container(
-                          alignment: Alignment.center,
-                          height: 700,
-                          child: Stack(
-                            children: [
-                             
-                              Image.memory(lePost.image),
-                               IconButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                icon: const Icon(Icons.arrow_back_ios_rounded),
-                                color: const Color.fromARGB(255, 255, 255, 255),
-                              ),
-                            ],
-                          ),
-                        )
-                        ),
-                     ), 
-                     Flexible(child: FractionallySizedBox(
-                widthFactor: 1,
-                child: Container(
-                  height: 3,
-                  color: Color.fromARGB(255, 201, 201, 201),
-                ),
-              )),
-              Container(
-                    child:  SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(lePost.title),
-                          SizedBox(height: 5,),
-                          Text(lePost.caption),
-                        ],
-                      ),
-                    ),
-                ),*/
+
